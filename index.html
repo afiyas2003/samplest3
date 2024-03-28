@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EMI Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding-left:35%;
+            background-color: rgb(120, 145, 168);
+        }
+        label {
+            display: inline-block;
+            width: 150px;
+            margin-bottom: 5px;
+        }
+        input[type="number"] {
+            width: 200px;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>EMI Calculator</h2>
+    <form id="emiForm">
+        <label for="loanAmount">Loan Amount:</label>
+        <input type="number" id="loanAmount" required><br>
+        <label for="interestRate">Annual Interest Rate (%):</label>
+        <input type="number" id="interestRate" required><br>
+        <label for="loanTenure">Loan Tenure (in months):</label>
+        <input type="number" id="loanTenure" required><br>
+        <button type="button" onclick="calculateEMI()">Calculate EMI</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        function calculateEMI() {
+            var loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            var interestRate = parseFloat(document.getElementById('interestRate').value) / 100 / 12;
+            var loanTenure = parseFloat(document.getElementById('loanTenure').value);
+
+            var emi = (loanAmount * interestRate * Math.pow(1 + interestRate, loanTenure)) / (Math.pow(1 + interestRate, loanTenure) - 1);
+            var emiRounded = Math.round(emi * 100) / 100;
+
+            document.getElementById('result').innerHTML = "Your EMI: $" + emiRounded.toFixed(2);
+        }
+    </script>
+</body>
+</html>
